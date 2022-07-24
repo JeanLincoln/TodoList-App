@@ -22,9 +22,9 @@ export const GlobalStyle = createGlobalStyle`
         -webkit-font-smoothing:antialiased;
     }
 
-    border-style, input, textarea, button {
+    border-style, input, textarea, button, p, span, strong {
         font-family: 'Inter', sans-serif;
         font-weight: 400;
-        font-size: 1rem;
+        font-size: 1.4rem;
     }
 `
