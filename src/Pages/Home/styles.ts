@@ -1,5 +1,14 @@
 import styled from "styled-components";
 
+export const MainContainer = styled.main`
+    display:flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items:center;
+    gap: 6.4rem;
+
+`
+
 export const FormContainer = styled.form`
     display:flex;
     justify-content:center;
@@ -61,4 +70,72 @@ export const FormContainer = styled.form`
     }
 
     
+`
+
+export const CreatedTasksContainer = styled.div`
+    display:flex;
+    flex-direction: column;
+    gap:2.4rem;
+
+    width:73.6rem;
+
+    #TaskStatistics{
+        display: flex;
+        justify-content:space-between;
+        align-items: flex-start;
+
+        .Statistics{
+            display:flex;
+            gap: .8rem;
+
+            width:13.9rem;
+            
+            p,span{
+                font-weight: 700;
+                color:${({theme})=>theme['blue']};
+            }
+
+            span{
+                display:flex;
+                justify-content:center;
+                align-items: center;
+
+                border-radius: .8rem;
+                width:2.5rem;
+                height:1.9rem;
+                font-size: 1.2rem;
+                background-color:${({theme})=>theme['gray-400']};
+                color:${({theme})=>theme['gray-200']};
+            }
+        }
+        .Statistics + .Statistics{
+                p{
+                    color:${({theme})=>theme['purple']};
+                }
+            }
+    }
+
+`
+
+export const TaskContainer = styled.div`
+    display:flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+    gap:1.6rem;
+
+
+    border-top: 1px solid ${({theme})=>theme['gray-400']};
+    color:${({theme})=>theme['gray-300']};
+    border-radius: 8px;
+
+    svg{
+        margin-top:6.4rem;
+        color:${({theme})=>theme['gray-400']};
+    }
+
+    strong{
+        font-weight:700;
+    }
+
 `
