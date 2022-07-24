@@ -1,5 +1,13 @@
+import {HeaderContainer} from './styles'
+import Logo  from '../../Assets/Logo.svg'
+
 export function Header(){
     return(
-        <h1>Cabecalho</h1>
+        <HeaderContainer>
+            <img 
+                src={Logo} 
+                alt="Site Logo, A rocket and a text 'Todo'" 
+            />
+        </HeaderContainer>
     )
 }
