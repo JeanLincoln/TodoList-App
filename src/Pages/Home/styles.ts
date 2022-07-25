@@ -9,7 +9,7 @@ export const MainContainer = styled.main`
 
 `
 
-export const FormContainer = styled.form`
+export const FormContainer = styled.div`
     display:flex;
     justify-content:center;
     align-items:center;
@@ -121,24 +121,29 @@ export const TaskStatistics = styled.div`
 `
 
 export const TaskContainer = styled.div`
-    display:flex;
-    flex-direction: column;
-    justify-content:center;
-    align-items: center;
-    gap:1.6rem;
-
+    
 
     border-top: 1px solid ${({theme})=>theme['gray-400']};
     color:${({theme})=>theme['gray-300']};
     border-radius: 8px;
-
-    svg{
+    
+    .noTaskContainer{
+        display:flex;
+        flex-direction: column;
+        justify-content:center;
+        align-items: center;
+        gap:1.6rem;
         margin-top:6.4rem;
-        color:${({theme})=>theme['gray-400']};
+        svg{
+                color:${({theme})=>theme['gray-400']};
+        }
+        
+        strong{
+                font-weight:700;
+        }
     }
 
-    strong{
-        font-weight:700;
-    }
+
+    
 
 `
