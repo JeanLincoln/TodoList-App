@@ -79,7 +79,11 @@ export const CreatedTasksContainer = styled.div`
 
     width:73.6rem;
 
-    #TaskStatistics{
+    
+
+`
+
+export const TaskStatistics = styled.div`
         display: flex;
         justify-content:space-between;
         align-items: flex-start;
@@ -108,13 +112,12 @@ export const CreatedTasksContainer = styled.div`
                 color:${({theme})=>theme['gray-200']};
             }
         }
+        
         .Statistics + .Statistics{
                 p{
                     color:${({theme})=>theme['purple']};
                 }
             }
-    }
-
 `
 
 export const TaskContainer = styled.div`

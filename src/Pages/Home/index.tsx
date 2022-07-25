@@ -1,20 +1,15 @@
 import {PlusCircle,ClipboardText} from 'phosphor-react'
-import { 
-    FormContainer, 
-    MainContainer,
-    CreatedTasksContainer,
-    TaskContainer
-} from './styles'
+import * as S from './styles'
 
 export function Home(){
     return (
-        <MainContainer>
-        <FormContainer>
+        <S.MainContainer>
+        <S.FormContainer>
             <input type="text" placeholder='Add a new task'/>
             <button type="submit">Create <PlusCircle size={18}/></button>
-        </FormContainer>
-        <CreatedTasksContainer>
-            <div id="TaskStatistics">
+        </S.FormContainer>
+        <S.CreatedTasksContainer>
+            <S.TaskStatistics>
                 <div className="Statistics">
                 <p>Tasks Created</p>
                 <span>0</span>
@@ -23,13 +18,13 @@ export function Home(){
                 <p>Tasks Finished</p>
                 <span>0</span>
                 </div>
-            </div>
-            <TaskContainer>
+                </ S.TaskStatistics>
+            <S.TaskContainer>
                 <ClipboardText size={56}/>
                 <strong>You don't have any task added yet</strong>
                 <span>Add tasks and arrange your items todo</span>
-            </TaskContainer>
-        </CreatedTasksContainer>
-        </MainContainer>
+            </S.TaskContainer>
+        </S.CreatedTasksContainer>
+        </S.MainContainer>
     )
 }

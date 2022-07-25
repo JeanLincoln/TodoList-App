@@ -1,13 +1,13 @@
-import {HeaderContainer} from './styles'
+import * as S from './styles'
 import Logo  from '../../Assets/Logo.svg'
 
 export function Header(){
     return(
-        <HeaderContainer>
+        <S.HeaderContainer>
             <img 
                 src={Logo} 
                 alt="Site Logo, A rocket and a text 'Todo'" 
             />
-        </HeaderContainer>
+        </S.HeaderContainer>
     )
 }
