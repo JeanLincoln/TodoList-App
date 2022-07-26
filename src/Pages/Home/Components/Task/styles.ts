@@ -37,7 +37,10 @@ export const Task = styled.div`
             border-radius: 50%;
 
             border: 2px solid ${({theme})=>theme['blue']};
+            box-shadow:none;
             background-color: transparent;
+
+            transition: background ease-in-out .2s;
 
             &:hover{
                 background-color: rgba(30,111,159,.3);
@@ -45,12 +48,17 @@ export const Task = styled.div`
 
             &:checked{
                 background-color: ${({theme})=>theme['purple-dark']};
+                background-image: url('../../../../../public/Assets/Check.svg');
                 background-repeat: no-repeat;
                 background-position: center;
                 border:hidden;
-                
             }
         }
+
+    button{
+        border:none;
+        background-color:transparent;
+    }
 
     svg{
         cursor: pointer;
