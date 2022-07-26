@@ -53,6 +53,11 @@ export const Task = styled.div`
                 background-position: center;
                 border:hidden;
             }
+
+            &:checked ~ span{
+                text-decoration-line: line-through;
+                color: ${({theme})=>theme['gray-300']};
+            }
         }
 
     button{
