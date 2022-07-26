@@ -114,8 +114,14 @@ export const TaskStatistics = styled.div`
         }
         
         .Statistics + .Statistics{
-                p{
+                width:16.5rem;
+                p{   
+                    
                     color:${({theme})=>theme['purple']};
+                }
+
+                span{
+                    width:5.2rem;
                 }
             }
 `
