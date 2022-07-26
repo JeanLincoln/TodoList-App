@@ -1,12 +1,17 @@
 import {PlusCircle,ClipboardText} from 'phosphor-react'
 import { useState } from 'react'
-import { Task } from './Components/Task'
+import { useForm, FormProvider } from 'react-hook-form'
+import { TaskItem } from './Components/Task'
 import * as S from './styles'
 
-export type Task = {
+type Task = {
     id: string,
     taskText:string,
     isChecked:boolean
+}
+
+type NewTaskFormData = {
+    taskText:string
 }
 
 export function Home(){
@@ -19,10 +24,13 @@ const [tasks, setTasks] = useState<Task[]>([
     
 ])
 
-const createNewTask = (e:any) => {
-    e.preventDefault()
+const {register, handleSubmit} = useForm<NewTaskFormData>(
+    {defaultValues:{ taskText:'',}}
+)
+
+const createNewTask = (data:NewTaskFormData) => {
     const id = String(new Date())
-    const taskText = e.target.taskText.value
+    const taskText = data.taskText
 
     const newTask = {
         id:id,
@@ -31,6 +39,29 @@ const createNewTask = (e:any) => {
     }
 
     setTasks((state):Task[] => [...state, newTask])
+}
+
+const deleteTask = (TaskToDelete:string) => {
+    const filteredTasks = tasks.filter(
+        task => task.id !== TaskToDelete)
+        setTasks(filteredTasks)
+}
+
+const markTaskAsChecked = (TaskToCheck:string) => {
+    setTasks(
+        tasks.map(task => {
+            const taskToCheck = task.id === TaskToCheck
+            const itsChecked = task.isChecked
+            if(taskToCheck && !itsChecked){
+                return  {...task, isChecked: true}
+            }
+
+            if(taskToCheck && itsChecked){
+                return   {...task, isChecked: false}
+            }
+        return task
+        })
+        )
 }
 
 const tasksAvaliable = () => {
@@ -45,21 +76,23 @@ const tasksAvaliable = () => {
     }
     return(
         tasks.map(({id,taskText, isChecked}) => {
-              return( <Task 
+              return( <TaskItem 
                     key={id}
                     id={id}
                     taskText={taskText}
                     isChecked={isChecked}
+                    onDeleteTask={deleteTask}
+                    onCheckTask={markTaskAsChecked}
                 />)
         })
     )
 }
-
     return (
         <S.MainContainer>
-            <form onSubmit={createNewTask}>
+            <form onSubmit={handleSubmit(createNewTask)}>
         <S.FormContainer>
-            <input type="text" name='taskText' placeholder='Add a new task'/>
+            
+            <input id="text" {...register('taskText')} placeholder='Add a new task'/>
             <button type="submit">Create <PlusCircle size={18}/></button>
         </S.FormContainer>
             </form>
@@ -67,14 +100,14 @@ const tasksAvaliable = () => {
             <S.TaskStatistics>
                 <div className="Statistics">
                 <p>Tasks Created</p>
-                <span>0</span>
+                <span>{tasks.length}</span>
                 </div>
                 <div className="Statistics">
                 <p>Tasks Finished</p>
-                <span>0</span>
+                <span>0 of {tasks.length}</span>
                 </div>
                 </ S.TaskStatistics>
-            <S.TaskContainer>   
+        <S.TaskContainer>   
             {tasksAvaliable()}
             </S.TaskContainer>
         </S.CreatedTasksContainer>
