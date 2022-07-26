@@ -104,7 +104,15 @@ const tasksAvaliable = () => {
                 </div>
                 <div className="Statistics">
                 <p>Tasks Finished</p>
-                <span>0 of {tasks.length}</span>
+                <span>{
+                tasks.reduce((acc,task) => {
+                  if(task.isChecked === true){
+                    return acc += 1
+                  }
+                  return acc
+                },0)
+                } of {tasks.length}
+                </span>
                 </div>
                 </ S.TaskStatistics>
         <S.TaskContainer>   
