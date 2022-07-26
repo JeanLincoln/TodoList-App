@@ -1,5 +1,5 @@
 import * as S from './styles'
-import Logo  from '../../Assets/Logo.svg'
+import Logo  from '../../../public/Assets/Logo.svg'
 import { NavLink } from 'react-router-dom'
 import { Clipboard,Check } from 'phosphor-react'
 
