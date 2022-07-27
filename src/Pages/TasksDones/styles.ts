@@ -1,5 +1,14 @@
 import styled from "styled-components";
 
+export const MainContainer = styled.main`
+    display:flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items:center;
+    gap: 6.4rem;
+    margin-top:4rem;
+
+`
 
 export const CreatedTasksContainer = styled.div`
     display:flex;
@@ -51,3 +60,32 @@ export const TaskStatistics = styled.div`
                 }
             }
 `
+
+export const TaskContainer = styled.div`
+    
+
+    border-top: 1px solid ${({theme})=>theme['gray-400']};
+    color:${({theme})=>theme['gray-300']};
+    border-radius: 8px;
+    
+    .noTaskContainer{
+        display:flex;
+        flex-direction: column;
+        justify-content:center;
+        align-items: center;
+        gap:1.6rem;
+        margin-top:6.4rem;
+        svg{
+                color:${({theme})=>theme['gray-400']};
+        }
+        
+        strong{
+                font-weight:700;
+        }
+    }
+
+
+    
+
+`
+

@@ -37,66 +37,63 @@ export function Home(){
         )
     }
 
-    const renderCheckedTasks = () => {
-        const checkedTasks = tasks.filter(task => task.isChecked)
-        if(!checkedTasks.length){
-            return(
-                <div className='noTaskContainer'>   
-                    <ClipboardText size={56}/>
-                    <strong>You don't have any solved tasks yet</strong>
-                    <span>Add tasks and solve them!</span>
-                </div>
-            )
-        }
-        return(
-            tasks.map(({id,taskText,isChecked}) => {
-                if(isChecked){
-                    return(
-                        <TaskItem 
-                            key={id} 
-                            id={id} 
-                            taskText={taskText}
-                            isChecked={isChecked}
-                        />
-                    )
-                }
-            })
-        )
-    }
+    // const renderCheckedTasks = () => {
+    //     const checkedTasks = tasks.filter(task => task.isChecked)
+    //     if(!checkedTasks.length){
+    //         return(
+    //             <div className='noTaskContainer'>   
+    //                 <ClipboardText size={56}/>
+    //                 <strong>You don't have any solved tasks yet</strong>
+    //                 <span>Add tasks and solve them!</span>
+    //             </div>
+    //         )
+    //     }
+    //     return(
+    //         tasks.map(({id,taskText,isChecked}) => {
+    //             if(isChecked){
+    //                 return(
+    //                     <TaskItem 
+    //                         key={id} 
+    //                         id={id} 
+    //                         taskText={taskText}
+    //                         isChecked={isChecked}
+    //                     />
+    //                 )
+    //             }
+    //         })
+    //     )
+    // }
         return (
             <S.MainContainer>
                 <form onSubmit={handleSubmit((createNewTask as SubmitHandler<FieldValues>))}>
-            <S.FormContainer>
-                <input id="text" {...register('taskText')} placeholder='Add a new task'/>
-                <button type="submit">Create <PlusCircle size={18}/></button>
-            </S.FormContainer>
+                <S.FormContainer>
+                    <input id="text" {...register('taskText')} placeholder='Add a new task'/>
+                    <button type="submit">Create <PlusCircle size={18}/></button>
+                </S.FormContainer>
                 </form>
-            <S.CreatedTasksContainer>
-                <S.TaskStatistics>
-                    <div className="Statistics">
-                    <p>Tasks Created</p>
-                    <span>{tasks.length}</span>
-                    </div>
-                    <div className="Statistics">
-                    <p>Tasks Finished</p>
-                    <span>{
-                    tasks.reduce((acc,task) => {
-                      if(task.isChecked === true){
-                        return acc += 1
-                      }
-                      return acc
-                    },0)
-                    } of {tasks.length}
-                    </span>
-                    </div>
+                <S.CreatedTasksContainer>
+                    <S.TaskStatistics>
+                        <div className="Statistics">
+                        <p>Tasks Created</p>
+                        <span>{tasks.length}</span>
+                        </div>
+                        <div className="Statistics">
+                        <p>Tasks Finished</p>
+                        <span>{
+                        tasks.reduce((acc,task) => {
+                          if(task.isChecked === true){
+                            return acc += 1
+                          }
+                          return acc
+                        },0)
+                        } of {tasks.length}
+                        </span>
+                        </div>
                     </ S.TaskStatistics>
-            <S.TaskContainer>   
-                {renderTasksAvaliable()}
-            </S.TaskContainer>
-            <S.TaskContainer> 
-                {renderCheckedTasks()}
-            </S.TaskContainer>
-            </S.CreatedTasksContainer>
+                <S.TaskContainer>   
+                    {renderTasksAvaliable()}
+                </S.TaskContainer>
+                </S.CreatedTasksContainer>
             </S.MainContainer>
         )
 }
