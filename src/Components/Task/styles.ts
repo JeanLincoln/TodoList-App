@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Check from '../../Assets/Check.svg'
 
 export const Task = styled.div`
     display:flex;
@@ -48,7 +49,7 @@ export const Task = styled.div`
 
             &:checked{
                 background-color: ${({theme})=>theme['purple-dark']};
-                background-image: url('../../../../../public/Assets/Check.svg');
+                background-image: url(${Check});
                 background-repeat: no-repeat;
                 background-position: center;
                 border:hidden;
