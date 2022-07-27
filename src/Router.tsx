@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import { DefaultLayout } from './Layouts/index' 
 import { Home } from './Pages/Home' 
-import { TasksDone } from './Pages/TasksDones' 
+import { TasksDones } from './Pages/TasksDones' 
 
 
 export function Router() {
@@ -9,7 +9,7 @@ export function Router() {
     <Routes>
       <Route path="/" element={<DefaultLayout />}>
         <Route path="/" element={<Home />} />
-        <Route path="/TasksDone" element={<TasksDone />} />
+        <Route path="/TasksDones" element={<TasksDones />} />
       </Route>
     </Routes>
   )
