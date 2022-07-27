@@ -37,32 +37,6 @@ export function Home(){
         )
     }
 
-    // const renderCheckedTasks = () => {
-    //     const checkedTasks = tasks.filter(task => task.isChecked)
-    //     if(!checkedTasks.length){
-    //         return(
-    //             <div className='noTaskContainer'>   
-    //                 <ClipboardText size={56}/>
-    //                 <strong>You don't have any solved tasks yet</strong>
-    //                 <span>Add tasks and solve them!</span>
-    //             </div>
-    //         )
-    //     }
-    //     return(
-    //         tasks.map(({id,taskText,isChecked}) => {
-    //             if(isChecked){
-    //                 return(
-    //                     <TaskItem 
-    //                         key={id} 
-    //                         id={id} 
-    //                         taskText={taskText}
-    //                         isChecked={isChecked}
-    //                     />
-    //                 )
-    //             }
-    //         })
-    //     )
-    // }
         return (
             <S.MainContainer>
                 <form onSubmit={handleSubmit((createNewTask as SubmitHandler<FieldValues>))}>
