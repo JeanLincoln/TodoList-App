@@ -8,10 +8,11 @@ import * as S from './styles'
 
 export function Home(){
 
-    const { tasks, createNewTask,register,handleSubmit } = useContext(TasksContext)
+    const { tasks,createNewTask,register,handleSubmit } = useContext(TasksContext)
 
-    const tasksAvaliable = () => {
-        if(!tasks.length){
+    const renderTasksAvaliable = () => {
+        const unCheckedTasks = tasks.filter(task => !task.isChecked)
+        if(!unCheckedTasks.length){
             return(
                 <div className='noTaskContainer'>   
                     <ClipboardText size={56}/>
@@ -21,12 +22,45 @@ export function Home(){
             )
         }
         return(
-            tasks.map(({id,taskText,isChecked}) => <TaskItem 
-                key={id} 
-                id={id} 
-                taskText={taskText}
-                isChecked={isChecked}
-            />)
+            tasks.map(({id,taskText,isChecked}) => {
+                if(!isChecked){
+                    return(
+                        <TaskItem 
+                            key={id} 
+                            id={id} 
+                            taskText={taskText}
+                            isChecked={isChecked}
+                        />
+                    )
+                }
+            })
+        )
+    }
+
+    const renderCheckedTasks = () => {
+        const checkedTasks = tasks.filter(task => task.isChecked)
+        if(!checkedTasks.length){
+            return(
+                <div className='noTaskContainer'>   
+                    <ClipboardText size={56}/>
+                    <strong>You don't have any solved tasks yet</strong>
+                    <span>Add tasks and solve them!</span>
+                </div>
+            )
+        }
+        return(
+            tasks.map(({id,taskText,isChecked}) => {
+                if(isChecked){
+                    return(
+                        <TaskItem 
+                            key={id} 
+                            id={id} 
+                            taskText={taskText}
+                            isChecked={isChecked}
+                        />
+                    )
+                }
+            })
         )
     }
         return (
@@ -57,8 +91,11 @@ export function Home(){
                     </div>
                     </ S.TaskStatistics>
             <S.TaskContainer>   
-                {tasksAvaliable()}
-                </S.TaskContainer>
+                {renderTasksAvaliable()}
+            </S.TaskContainer>
+            <S.TaskContainer> 
+                {renderCheckedTasks()}
+            </S.TaskContainer>
             </S.CreatedTasksContainer>
             </S.MainContainer>
         )

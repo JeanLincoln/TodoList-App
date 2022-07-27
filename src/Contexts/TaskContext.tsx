@@ -15,7 +15,7 @@ type TasksContextType = {
     tasks:Task[]
     createNewTask:(data:NewTaskFormData) => void
     deleteTask: (TodoId:string) => void
-    markTaskAsChecked: (TodoId:string) => void
+    handleTaskChecks: (TodoId:string) => void
     register: UseFormRegister<{ taskText: string; }>
     handleSubmit:UseFormHandleSubmit<{ taskText: string; }>
 }
@@ -35,7 +35,6 @@ export function TasksContextProvider({children}:TasksContextProviderProps){
         }
         
     ])
-    const [checkedTasks, setCheckedTasks] = useState<Task[]>([])
 
     const { register, handleSubmit, reset } = useForm({
         defaultValues:{
@@ -62,21 +61,18 @@ export function TasksContextProvider({children}:TasksContextProviderProps){
             setTasks(filteredTasks)
     }
     
-    const markTaskAsChecked = (TaskToCheck:string) => {
+    const handleTaskChecks = (taskId:string) => {
         setTasks(
             tasks.map(task => {
-                const taskToCheck = task.id === TaskToCheck
-                const itsChecked = task.isChecked
-                if(taskToCheck && !itsChecked){
-                    return  {...task, isChecked: true}
+                if(task.id === taskId && !task.isChecked){
+                    return {...task, isChecked:true}
                 }
-    
-                if(taskToCheck && itsChecked){
-                    return   {...task, isChecked: false}
+                if(task.id === taskId && task.isChecked){
+                    return {...task, isChecked:false}
                 }
-            return task
+                return task
             })
-            )
+        )
     }
     
     return(
@@ -84,7 +80,7 @@ export function TasksContextProvider({children}:TasksContextProviderProps){
             value={{
                 tasks,
                 deleteTask,
-                markTaskAsChecked,
+                handleTaskChecks,
                 createNewTask,
                 register,
                 handleSubmit

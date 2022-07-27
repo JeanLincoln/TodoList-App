@@ -7,20 +7,20 @@ import * as S from './styles'
 
 export function TaskItem({id,taskText,isChecked}:Task){
 
-    const {deleteTask,markTaskAsChecked} = useContext(TasksContext)
+    const { deleteTask,handleTaskChecks } = useContext(TasksContext)
 
     const HandledeleteTask = () => {
         deleteTask(id)
     }
 
     const HandleCheckTask = () => {
-        markTaskAsChecked(id)
+        handleTaskChecks(id)
     }
 
     return(
         <S.Task>
             <div className='taskContent'>
-            <input onChange={HandleCheckTask} type="checkbox" />
+            <input checked={isChecked} onChange={HandleCheckTask} type="checkbox" />
             <span className="checkmark"></span>
             <span>{taskText}</span>
             </div>
