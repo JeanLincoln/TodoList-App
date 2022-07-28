@@ -1,5 +1,7 @@
-import { createContext, ReactNode, useState } from 'react'
+import { createContext, ReactNode, useEffect, useState } from 'react'
 import { useForm, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form'
+import { getDocs } from 'firebase/firestore'
+import { tasksCollection } from '../FirestoreEnv'
 
 export type Task = {
   id: string
@@ -34,6 +36,24 @@ export function TasksContextProvider({ children }: TasksContextProviderProps) {
       taskText: '',
     },
   })
+
+  const getStoredTasks = () => {
+    const fetchData = async () => {
+      const data = await getDocs(tasksCollection)
+      const uncheckedTasksStored = data.docs.filter((doc) => doc.data())
+      setTasks(
+        uncheckedTasksStored.map((doc) => ({
+          id: doc.id,
+          taskText: doc.data().taskText,
+          isChecked: doc.data().isChecked,
+        })),
+      )
+    }
+    console.log('requisitou')
+    fetchData()
+  }
+
+  useEffect(getStoredTasks, [])
 
   const createNewTask = (data: NewTaskFormData) => {
     const id = String(new Date())
