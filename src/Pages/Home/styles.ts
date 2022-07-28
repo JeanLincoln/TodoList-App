@@ -1,155 +1,140 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const MainContainer = styled.main`
-    display:flex;
-    flex-direction: column;
-    justify-content:center;
-    align-items:center;
-    gap: 6.4rem;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6.4rem;
 `
 
 export const FormContainer = styled.div`
-    display:flex;
-    justify-content:center;
-    align-items:center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem;
+
+  margin-top: -2.6rem;
+
+  input {
+    width: 63.8rem;
+    height: 5.4rem;
+    border-radius: 0.8rem;
+
+    border: 0.1rem solid ${({ theme }) => theme['gray-700']};
+    background: ${({ theme }) => theme['gray-500']};
+    color: ${({ theme }) => theme['gray-100']};
+
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 1.6rem;
+
+    padding: 1.6rem 0 1.6rem 1.6rem;
+
+    &::placeholder {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 1.6rem;
+      color: ${({ theme }) => theme['gray-300']};
+    }
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 0.8rem;
 
-    margin-top: -2.6rem;
+    height: 5.2rem;
+    width: 9rem;
 
-    input {
-        width:63.8rem;
-        height:5.4rem;
-        border-radius:.8rem;
+    border-radius: 0.8rem;
+    font-size: 1.4rem;
+    border-color: ${({ theme }) => theme['gray-700']};
+    background-color: ${({ theme }) => theme['blue-dark']};
+    color: ${({ theme }) => theme['gray-100']};
 
-        border: 0.1rem solid ${({theme})=>theme['gray-700']};
-        background: ${({theme})=>theme['gray-500']};
-        color: ${({theme})=>theme['gray-100']};
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
 
-        font-family: 'Inter',sans-serif;
-        font-weight: 400;
-        font-size: 1.6rem;
+    cursor: pointer;
+    transition: background ease 0.3s;
 
-        padding: 1.6rem 0 1.6rem 1.6rem;
-        
-
-        &::placeholder{
-            font-family: 'Inter',sans-serif;
-            font-weight: 400;
-            font-size: 1.6rem;
-            color: ${({theme})=>theme['gray-300']};
-        }
+    &:hover {
+      background-color: ${({ theme }) => theme.blue};
     }
-
-    button{
-        display:flex;
-        align-items: center;
-        justify-content:center;
-        gap:.8rem;
-
-        height:5.2rem;
-        width:9rem;
-
-        
-        border-radius: 0.8rem;
-        font-size: 1.4rem;
-        border-color: ${({theme})=>theme['gray-700']};
-        background-color:${({theme})=>theme['blue-dark']};
-        color:${({theme})=>theme['gray-100']};;
-
-        font-family: 'Inter',sans-serif;
-        font-weight: 700;
-
-        cursor: pointer;
-        transition: background ease 0.3s;
-
-        &:hover{
-            background-color:${({theme})=>theme['blue']};
-        }
-
-    }
-
-    
+  }
 `
 
 export const CreatedTasksContainer = styled.div`
-    display:flex;
-    flex-direction: column;
-    gap:2.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
 
-    width:73.6rem;
-
-    
-
+  width: 73.6rem;
 `
 
 export const TaskStatistics = styled.div`
-        display: flex;
-        justify-content:space-between;
-        align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 
-        .Statistics{
-            display:flex;
-            gap: .8rem;
+  .Statistics {
+    display: flex;
+    gap: 0.8rem;
 
-            width:13.9rem;
-            
-            p,span{
-                font-weight: 700;
-                color:${({theme})=>theme['blue']};
-            }
+    width: 13.9rem;
 
-            span{
-                display:flex;
-                justify-content:center;
-                align-items: center;
+    p,
+    span {
+      font-weight: 700;
+      color: ${({ theme }) => theme.blue};
+    }
 
-                border-radius: .8rem;
-                width:2.5rem;
-                height:1.9rem;
-                font-size: 1.2rem;
-                background-color:${({theme})=>theme['gray-400']};
-                color:${({theme})=>theme['gray-200']};
-            }
-        }
-        
-        .Statistics + .Statistics{
-                width:16.5rem;
-                p{   
-                    
-                    color:${({theme})=>theme['purple']};
-                }
+    span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
-                span{
-                    width:5.2rem;
-                }
-            }
+      border-radius: 0.8rem;
+      width: 2.5rem;
+      height: 1.9rem;
+      font-size: 1.2rem;
+      background-color: ${({ theme }) => theme['gray-400']};
+      color: ${({ theme }) => theme['gray-200']};
+    }
+  }
+
+  .Statistics + .Statistics {
+    width: 16.5rem;
+    p {
+      color: ${({ theme }) => theme.purple};
+    }
+
+    span {
+      width: 5.2rem;
+    }
+  }
 `
 
 export const TaskContainer = styled.div`
-    
+  border-top: 1px solid ${({ theme }) => theme['gray-400']};
+  color: ${({ theme }) => theme['gray-300']};
+  border-radius: 8px;
 
-    border-top: 1px solid ${({theme})=>theme['gray-400']};
-    color:${({theme})=>theme['gray-300']};
-    border-radius: 8px;
-    
-    .noTaskContainer{
-        display:flex;
-        flex-direction: column;
-        justify-content:center;
-        align-items: center;
-        gap:1.6rem;
-        margin-top:6.4rem;
-        svg{
-                color:${({theme})=>theme['gray-400']};
-        }
-        
-        strong{
-                font-weight:700;
-        }
+  .noTaskContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.6rem;
+    margin-top: 6.4rem;
+    svg {
+      color: ${({ theme }) => theme['gray-400']};
     }
 
-
-    
-
+    strong {
+      font-weight: 700;
+    }
+  }
 `

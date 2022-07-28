@@ -1,8 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
-import { DefaultLayout } from './Layouts/index' 
-import { Home } from './Pages/Home' 
-import { TasksDones } from './Pages/TasksDones' 
-
+import { DefaultLayout } from './Layouts/index'
+import { Home } from './Pages/Home'
+import { TasksDones } from './Pages/TasksDones'
 
 export function Router() {
   return (
