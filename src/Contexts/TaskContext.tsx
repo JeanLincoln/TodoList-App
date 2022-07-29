@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useEffect, useState } from 'react'
 import { useForm, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form'
-import { getDocs } from 'firebase/firestore'
-import { tasksCollection } from '../FirestoreEnv'
+import { addDoc, deleteDoc, doc, getDocs } from 'firebase/firestore'
+import { db, tasksCollection } from '../FirestoreEnv'
 
 export type Task = {
   id: string
@@ -37,12 +37,11 @@ export function TasksContextProvider({ children }: TasksContextProviderProps) {
     },
   })
 
-  const getStoredTasks = () => {
-    const fetchData = async () => {
+  const fetchTasks = () => {
+    const getTasks = async () => {
       const data = await getDocs(tasksCollection)
-      const uncheckedTasksStored = data.docs.filter((doc) => doc.data())
-      setTasks(
-        uncheckedTasksStored.map((doc) => ({
+      setTasks((state): Task[] =>
+        data.docs.map((doc) => ({
           id: doc.id,
           taskText: doc.data().taskText,
           isChecked: doc.data().isChecked,
@@ -50,27 +49,32 @@ export function TasksContextProvider({ children }: TasksContextProviderProps) {
       )
     }
     console.log('requisitou')
-    fetchData()
+    getTasks()
   }
 
-  useEffect(getStoredTasks, [])
+  useEffect(fetchTasks, [])
 
-  const createNewTask = (data: NewTaskFormData) => {
-    const id = String(new Date())
-
-    const newTask = {
-      id,
+  const createNewTask = async (data: NewTaskFormData) => {
+    await addDoc(tasksCollection, {
       taskText: data.taskText,
       isChecked: false,
-    }
-    console.log(data)
-    reset()
-    setTasks((state): Task[] => [...state, newTask])
+    })
+
+    // const id = String(new Date())
+
+    // const newTask = {
+    //   id,
+    //   taskText: data.taskText,
+    //   isChecked: false,
+    // }
+    // console.log(data)
+    // reset()
+    // setTasks((state): Task[] => [...state, newTask])
   }
 
-  const deleteTask = (TaskToDelete: string) => {
-    const filteredTasks = tasks.filter((task) => task.id !== TaskToDelete)
-    setTasks(filteredTasks)
+  const deleteTask = async (taskId: string) => {
+    const taskDoc = doc(db, 'tasks', taskId)
+    await deleteDoc(taskDoc)
   }
 
   const handleTaskChecks = (taskId: string) => {
