@@ -10,9 +10,11 @@ export function Header() {
       <nav>
         <NavLink to="/" title="Home">
           <Clipboard size={32} />
+          <span>Todos</span>
         </NavLink>
         <NavLink to="/TasksDones" title="TasksDones">
           <Check size={32} />
+          <span>Dones</span>
         </NavLink>
       </nav>
     </S.HeaderContainer>

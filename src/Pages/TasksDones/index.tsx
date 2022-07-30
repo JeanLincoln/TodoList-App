@@ -2,7 +2,7 @@ import * as S from './styles'
 import { TaskItem } from '../../Components/Task'
 import { useContext } from 'react'
 import { TasksContext } from '../../Contexts/TaskContext'
-import { ClipboardText } from 'phosphor-react'
+import { MaskSad } from 'phosphor-react'
 
 export function TasksDones() {
   const { tasks } = useContext(TasksContext)
@@ -12,7 +12,7 @@ export function TasksDones() {
     if (!checkedTasks.length) {
       return (
         <div className="noTaskContainer">
-          <ClipboardText size={56} />
+          <MaskSad size={56} />
           <strong>You don't have any solved tasks yet</strong>
           <span>Add tasks and solve them!</span>
         </div>
