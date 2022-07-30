@@ -15,10 +15,13 @@ export const HeaderContainer = styled.header`
     flex-direction: column;
     align-items: center;
 
+    &:link {
+      text-decoration: none !important;
+    }
+
     span {
       margin-top: 0.5rem;
       font-size: 1.3rem;
-      text-decoration: none;
     }
   }
 `
