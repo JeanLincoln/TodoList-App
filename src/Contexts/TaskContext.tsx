@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useEffect, useState } from 'react'
 import { useForm, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form'
-import { addDoc, deleteDoc, doc, getDocs } from 'firebase/firestore'
+import { addDoc, deleteDoc, doc, getDocs, onSnapshot } from 'firebase/firestore'
 import { db, tasksCollection } from '../FirestoreEnv'
 
 export type Task = {
@@ -17,7 +17,6 @@ type TasksContextType = {
   tasks: Task[]
   createNewTask: (data: NewTaskFormData) => void
   deleteTask: (TodoId: string) => void
-  handleTaskChecks: (TodoId: string) => void
   register: UseFormRegister<{ taskText: string }>
   handleSubmit: UseFormHandleSubmit<{ taskText: string }>
 }
@@ -29,7 +28,9 @@ type TasksContextProviderProps = {
 export const TasksContext = createContext({} as TasksContextType)
 
 export function TasksContextProvider({ children }: TasksContextProviderProps) {
-  const [tasks, setTasks] = useState<Task[]>([])
+  const [tasks, setTasks] = useState<Task[]>([
+    { id: 'initial', taskText: 'Loading', isChecked: false },
+  ])
 
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
@@ -37,39 +38,24 @@ export function TasksContextProvider({ children }: TasksContextProviderProps) {
     },
   })
 
-  const fetchTasks = () => {
-    const getTasks = async () => {
-      const data = await getDocs(tasksCollection)
-      setTasks((state): Task[] =>
-        data.docs.map((doc) => ({
+  useEffect(() => {
+    onSnapshot(tasksCollection, (snapshot) => {
+      setTasks(
+        snapshot.docs.map((doc) => ({
           id: doc.id,
           taskText: doc.data().taskText,
           isChecked: doc.data().isChecked,
         })),
       )
-    }
-    console.log('requisitou')
-    getTasks()
-  }
-
-  useEffect(fetchTasks, [])
+    })
+  }, [])
 
   const createNewTask = async (data: NewTaskFormData) => {
     await addDoc(tasksCollection, {
       taskText: data.taskText,
       isChecked: false,
     })
-
-    // const id = String(new Date())
-
-    // const newTask = {
-    //   id,
-    //   taskText: data.taskText,
-    //   isChecked: false,
-    // }
-    // console.log(data)
-    // reset()
-    // setTasks((state): Task[] => [...state, newTask])
+    reset()
   }
 
   const deleteTask = async (taskId: string) => {
@@ -77,26 +63,11 @@ export function TasksContextProvider({ children }: TasksContextProviderProps) {
     await deleteDoc(taskDoc)
   }
 
-  const handleTaskChecks = (taskId: string) => {
-    setTasks(
-      tasks.map((task) => {
-        if (task.id === taskId && !task.isChecked) {
-          return { ...task, isChecked: true }
-        }
-        if (task.id === taskId && task.isChecked) {
-          return { ...task, isChecked: false }
-        }
-        return task
-      }),
-    )
-  }
-
   return (
     <TasksContext.Provider
       value={{
         tasks,
         deleteTask,
-        handleTaskChecks,
         createNewTask,
         register,
         handleSubmit,

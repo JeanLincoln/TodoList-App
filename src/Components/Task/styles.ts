@@ -18,10 +18,11 @@ export const Task = styled.div`
 
   .taskContent {
     display: flex;
+    align-items: center;
     gap: 1rem;
   }
 
-  input {
+  .taskCheck {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -54,9 +55,14 @@ export const Task = styled.div`
       border: hidden;
     }
 
-    &:checked ~ span {
+    &:checked ~ input {
       text-decoration-line: line-through;
       color: ${({ theme }) => theme['gray-300']};
+    }
+
+    &:checked ~ input:focus {
+      text-decoration-line: none;
+      color: ${({ theme }) => theme['gray-100']};
     }
   }
 
@@ -72,5 +78,13 @@ export const Task = styled.div`
     &:hover {
       color: ${({ theme }) => theme.danger};
     }
+  }
+
+  input {
+    background-color: transparent;
+    border: none;
+    color: ${({ theme }) => theme['gray-100']};
+    border-radius: 8px;
+    padding: 3px;
   }
 `
