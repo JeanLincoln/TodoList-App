@@ -1,4 +1,5 @@
 import { initializeApp } from 'firebase/app'
+import { GoogleAuthProvider, getAuth, onAuthStateChanged } from 'firebase/auth'
 import { collection, getFirestore } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -11,7 +12,8 @@ const firebaseConfig = {
   measurementId: 'G-70LBNJ5BLL',
 }
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig)
 export const db = getFirestore(app)
 export const tasksCollection = collection(db, 'tasks')
+export const provider = new GoogleAuthProvider()
+export const auth = getAuth()

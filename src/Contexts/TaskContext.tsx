@@ -1,7 +1,14 @@
-import { createContext, ReactNode, useEffect, useState } from 'react'
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 import { useForm, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form'
-import { addDoc, deleteDoc, doc, getDocs, onSnapshot } from 'firebase/firestore'
+import { addDoc, deleteDoc, doc, onSnapshot } from 'firebase/firestore'
 import { db, tasksCollection } from '../FirestoreEnv'
+import { AuthContext } from './AuthContext'
 
 export type Task = {
   id: string
@@ -28,9 +35,9 @@ type TasksContextProviderProps = {
 export const TasksContext = createContext({} as TasksContextType)
 
 export function TasksContextProvider({ children }: TasksContextProviderProps) {
-  const [tasks, setTasks] = useState<Task[]>([
-    { id: 'initial', taskText: 'Loading', isChecked: false },
-  ])
+  const [tasks, setTasks] = useState<Task[]>([])
+
+  const { user } = useContext(AuthContext)
 
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
@@ -40,18 +47,25 @@ export function TasksContextProvider({ children }: TasksContextProviderProps) {
 
   useEffect(() => {
     onSnapshot(tasksCollection, (snapshot) => {
+      const userTasks = snapshot.docs.filter(
+        (doc) => doc.data().userUID === user?.uid,
+      )
       setTasks(
-        snapshot.docs.map((doc) => ({
-          id: doc.id,
-          taskText: doc.data().taskText,
-          isChecked: doc.data().isChecked,
-        })),
+        userTasks.map((doc) => {
+          return {
+            id: doc.id,
+            userUID: doc.data().userUID,
+            taskText: doc.data().taskText,
+            isChecked: doc.data().isChecked,
+          }
+        }),
       )
     })
-  }, [])
+  }, [user])
 
   const createNewTask = async (data: NewTaskFormData) => {
     await addDoc(tasksCollection, {
+      userUID: user!.uid,
       taskText: data.taskText,
       isChecked: false,
     })
