@@ -1,6 +1,6 @@
 import { PlusCircle, ClipboardText } from 'phosphor-react'
 import { useContext } from 'react'
-import { FieldValues, SubmitHandler, useFormContext } from 'react-hook-form'
+import { FieldValues, SubmitHandler } from 'react-hook-form'
 import { TaskItem } from '../../Components/Task'
 import { TasksContext } from '../../Contexts/TaskContext'
 
@@ -32,6 +32,7 @@ export function Home() {
           />
         )
       }
+      return 'error'
     })
   }
 

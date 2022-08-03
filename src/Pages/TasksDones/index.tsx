@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import * as S from './styles'
 import { TaskItem } from '../../Components/Task'
 import { useContext } from 'react'
@@ -18,6 +19,7 @@ export function TasksDones() {
         </div>
       )
     }
+
     return tasks.map(({ id, taskText, isChecked }) => {
       if (isChecked) {
         return (

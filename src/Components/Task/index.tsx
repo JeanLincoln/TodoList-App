@@ -1,10 +1,9 @@
 import { Trash } from 'phosphor-react'
-import { InputHTMLAttributes, useContext } from 'react'
+import { useContext } from 'react'
 import { Task, TasksContext } from '../../Contexts/TaskContext'
 import { doc, updateDoc } from 'firebase/firestore'
 import { db } from '../../FirestoreEnv'
 import * as S from './styles'
-import { useFormContext } from 'react-hook-form'
 
 export function TaskItem({ id, taskText, isChecked }: Task) {
   const { deleteTask } = useContext(TasksContext)
