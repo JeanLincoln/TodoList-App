@@ -14,7 +14,7 @@ export function Auth() {
     <S.AuthContainer>
       <S.Content>
         <img src={Logo} alt="Site Logo, A rocket and a text 'Todo'" />
-        <h1>Please LogIn with Google to proceed to TaskApp</h1>
+        <h1>Please Log In with Google to proceed to TaskApp</h1>
         <button onClick={authentication}>
           <img src={Google} alt="Site Logo, A rocket and a text 'Todo'" /> LogIn
           With Google
