@@ -13,5 +13,6 @@ export const DefaultTheme = {
   'gray-200': '#D9D9D9',
   'gray-100': '#F2F2F2',
 
-  danger: '#E25858',
+  'danger-dark': '#ec100f',
+  danger: '#be0003',
 }

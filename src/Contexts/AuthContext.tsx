@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { auth, provider } from '../FirestoreEnv'
-import { onAuthStateChanged, signInWithPopup } from 'firebase/auth'
+import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth'
 
 type User = {
   uid: string | undefined
@@ -10,30 +10,37 @@ type User = {
 type AuthContextType = {
   user: User | undefined
   authentication: () => void
+  logOut: () => void
 }
 
 type AuthContextProviderProps = {
   children: ReactNode
 }
 
-const to = (promise: Promise<object>) =>
+const to = (promise: Promise<Object>) =>
   promise.then((result) => [null, result]).catch((error) => [error])
 
 export const AuthContext = createContext({} as AuthContextType)
 
 export function AuthContextProvider({ children }: AuthContextProviderProps) {
   const [user, setUser] = useState<User>()
-
-  onAuthStateChanged(auth, (user) => user)
-
   const navigate = useNavigate()
 
   const authentication = async () => {
-    const [error, result] = await to(signInWithPopup(auth, provider))
+    const [error] = await to(signInWithPopup(auth, provider))
     if (error) {
       return console.log('an error happened')
     }
     return navigate('/')
+  }
+
+  const logOut = async () => {
+    signOut(auth)
+      .then(() => {})
+      .catch((error) => {
+        console.log(error)
+      })
+    window.location.reload()
   }
 
   useEffect(() => {
@@ -46,7 +53,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ user, authentication }}>
+    <AuthContext.Provider value={{ user, authentication, logOut }}>
       {children}
     </AuthContext.Provider>
   )
