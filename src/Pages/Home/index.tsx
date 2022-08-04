@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import { PlusCircle, ClipboardText } from 'phosphor-react'
 import { useContext } from 'react'
 import { FieldValues, SubmitHandler } from 'react-hook-form'
@@ -32,7 +33,6 @@ export function Home() {
           />
         )
       }
-      return 'error'
     })
   }
 
